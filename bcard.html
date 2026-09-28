@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramon Rios - Business Card</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0d0f12;
+            --darker-bg: #07080a;
+            --gold-light: #F2C94C;
+            --gold-primary: #D4AF37;
+            --gold-dark: #A67C00;
+            --text-light: #F8F9FA;
+            --text-muted: #ADB5BD;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #1a1c23;
+            background-image: radial-gradient(circle at 50% 0%, #2a2d38 0%, #1a1c23 100%);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Perspective container for 3D effect */
+        .card-container {
+            perspective: 1500px;
+        }
+
+        .business-card {
+            width: 700px;
+            height: 400px;
+            background: var(--dark-bg);
+            border-radius: 20px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .business-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(-5deg);
+            box-shadow: 20px 40px 70px rgba(0, 0, 0, 0.7), 
+                        -10px -10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        /* Left Section */
+        .left-section {
+            flex: 1.1;
+            padding: 40px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 2;
+            background: linear-gradient(145deg, var(--darker-bg), var(--dark-bg));
+        }
+
+        .profile-bg {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 250px;
+            height: 250px;
+            opacity: 0.15;
+            background-image: url('../../public/assets/aura/Ramon Rios.png');
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            filter: grayscale(100%) contrast(120%);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .name-role {
+            margin-bottom: 30px;
+        }
+
+        .name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 38px;
+            font-weight: 800;
+            color: var(--text-light);
+            margin: 0 0 5px 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .role {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--gold-primary);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: var(--gold-primary);
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-primary);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1);
+            background: rgba(212, 175, 55, 0.2);
+        }
+
+        /* Right Section */
+        .right-section {
+            flex: 0.9;
+            background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-primary) 50%, var(--gold-light) 100%);
+            padding: 40px;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gold texture overlay */
+        .right-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+') repeat;
+            mix-blend-mode: overlay;
+            opacity: 0.5;
+        }
+
+        .services-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding-right: 50px;
+        }
+
+        .service-item {
+            color: #111;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.9;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .service-item:hover {
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+        .service-item::before {
+            content: '■';
+            font-size: 8px;
+            color: #111;
+        }
+
+        .slogan-vertical {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 900;
+            color: rgba(17, 17, 17, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            white-space: nowrap;
+            pointer-events: none;
+            /* Inner shadow effect for the text */
+            background: #111;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        /* SVGs for icons */
+        svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Glare effect on card */
+        .business-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to bottom right, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.05) 40%,
+                rgba(255, 255, 255, 0.2) 50%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg) translateY(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .business-card:hover::after {
+            transform: rotate(30deg) translateY(100%);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .business-card {
+                width: 90vw;
+                height: auto;
+                flex-direction: column;
+            }
+            .left-section, .right-section {
+                padding: 30px;
+            }
+            .slogan-vertical {
+                writing-mode: horizontal-tb;
+                position: relative;
+                transform: none;
+                right: auto;
+                top: auto;
+                font-size: 24px;
+                text-align: center;
+                margin-top: 20px;
+                background: none;
+                -webkit-text-fill-color: rgba(17, 17, 17, 0.3);
+                text-shadow: none;
+            }
+            .services-container {
+                padding-right: 0;
+            }
+            .profile-bg {
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <div class="business-card">
+            
+            <div class="left-section">
+                <!-- Background profile photo -->
+                <div class="profile-bg"></div>
+
+                <div class="content-wrapper name-role">
+                    <h1 class="name">Ramon Rios</h1>
+                    <h2 class="role">Systems Solution Architect & AI Expert</h2>
+                </div>
+
+                <div class="content-wrapper contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </div>
+                        <span>+1-385-630-3100</span>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        </div>
+                        <span>Coqui.Cloud</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <span>info@RamonRios.NET</span>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
+                        <span>Tech Blog: RamonRios.Net</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-section">
+                <div class="services-container">
+                    <div class="service-item">AI & Automations</div>
+                    <div class="service-item">Ethical Hacker | Pen Tester</div>
+                    <div class="service-item">Odoo Expert</div>
+                    <div class="service-item">Website & Marketing</div>
+                    <div class="service-item">NFC, RFID & IOT Solutions</div>
+                    <div class="service-item">Custom Software</div>
+                    <div class="service-item">Integrations | Trainings</div>
+                </div>
+                
+                <div class="slogan-vertical">
+                    Your Technology Partner for Growth
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
